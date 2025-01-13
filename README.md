@@ -1,4 +1,5 @@
 #  Projeto Kubernetes
+![Minha Imagem](./img/kubernets.jpg)
 
 Este projeto consiste em uma lista de exercícios práticos que têm como objetivo demonstrar o uso do Kubernetes em ambientes de desenvolvimento. Ao longo deste exercício, aprendi e pratiquei diversas operações essenciais para trabalhar com Kubernetes, incluindo:
 
@@ -24,9 +25,68 @@ Este exercício permitiu aprofundar o entendimento sobre os conceitos-chave do K
 9. **NodePort Service**: Criação de um serviço do tipo NodePort para expor externamente um Deployment "webapp" e acesso via Minikube.
 10. **Pod com política de reinício "OnFailure"**: Criação de um pod "restart-pod" e teste de sua política de reinício ao provocar falhas.
 
-## 🔧 Tecnologias Utilizadas
+## Tecnologias Utilizadas
 
 - **Kubernetes**: Orquestração de containers.
 - **Minikube**: Ambiente de desenvolvimento local para Kubernetes.
 - **Docker**: Containerização das aplicações.
 - **kubectl**: Ferramenta de linha de comando para interagir com o Kubernetes.
+
+Antes de iniciar a criação do pod e das demais atividades, instalei o **Minikube** e o **kubectl**. Para dar início à formação do cluster, executei o seguinte comando:
+
+```bash
+minikube start --driver=docker
+```
+Esse comando inicia a inicialização do Minikube, executando o cluster dentro do Docker.
+
+Inicio das atividades
+
+ 1. Criar um Pod chamado "my-pod" usando a imagem "nginx"
+
+ no Powershell apliquei o comando 
+
+ ```bash
+ code my-pod.yaml
+ ```
+Com esse comando eu abri o vscod e começei com a criação do my-pod
+
+**[Clique aqui para acessar o arquivo my-pod.yaml](./execicios/pods/my-pod.yaml)**
+
+Para criar o pod, executei o seguinte comando:
+
+```bash
+kubectl apply -f my-pod.yaml
+```
+![Minha Imagem](./img/my-pod.png)
+
+
+O próximo passo foi criar um Deployment chamado my-deployment com três réplicas, utilizando a imagem httpd. A configuração foi feita no arquivo my-deployment.yaml, com o comando 
+
+ ```bash
+ code my-deployment.yaml
+ ```
+
+**[Clique aqui para acessar o arquivo my-pod.yaml](./execicios/deployments/my-deployment.yaml)**
+
+```bash
+kubectl apply -f my-deployment.yaml
+```
+
+![Minha Imagem](./img/my-deployyment.png)
+
+para atualizar a imagem para uma versão mais recente (httpd:2.4)
+ foi utilizado o comando 
+
+```bash
+ kubectl set image deployment/my-deployment httpd=httpd:2.4
+```
+![Minha Imagem](./img/atual.png)
+
+para verificar a atualização 
+
+```bash
+kubectl describe pod my-deployment
+```
+Em Events esta a atualização da imagem:
+
+![Minha Imagem](./img/atualizazao.png)

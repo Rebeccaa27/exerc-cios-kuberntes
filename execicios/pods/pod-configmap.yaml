@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: configmap-test-pod
+spec:
+  containers:
+    - name: alpine-container
+      image: alpine:latest
+      env:
+        - name: APP_GREETING
+          valueFrom:
+            configMapKeyRef:
+              name: app-config
+              key: APP_GREETING
+      command: ["sh", "-c", "echo \"$APP_GREETING\" && sleep 3600"]
